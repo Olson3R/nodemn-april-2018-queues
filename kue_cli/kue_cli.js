@@ -64,8 +64,8 @@ program
         queue.process(type, function(job, done){
           console.log(`${workerName}: Processing ${JSON.stringify(job)}`);
           // setTimeout(done, 1000);
-          done('I went KABOOOM');
-          // done();
+          // done('I went KABOOOM');
+          done();
         });
       });
   });
