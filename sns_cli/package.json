@@ -1,27 +1,25 @@
 {
-  "name": "sqs_cli",
+  "name": "sns_cli",
   "version": "1.0.0",
-  "description": "Example sqs_CLI app to generate messages to enqueue.",
-  "main": "sqs_cli.js",
+  "description": "Example sns cli app to generate messages to distribute.",
+  "main": "sns_cli.js",
   "bin": {
-    "sqs_cli": "./sqs_cli.js"
+    "sns_cli": "./sns_cli.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "cli",
-    "sqs",
     "sns",
-    "message",
-    "queue"
+    "messaging"
   ],
   "author": "Scott Olson",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.214.1",
     "commander": "^2.15.1",
-    "getconfig": "^4.4.1",
+    "config": "^1.30.0",
     "lodash": "^4.17.5"
   }
 }
