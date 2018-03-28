@@ -1,14 +1,14 @@
 {
-  "name": "sqs_lambda",
+  "name": "lambda_consumer",
   "version": "1.0.0",
-  "description": "An example endpoint that processes messages from SQS.",
+  "description": "An example endpoint that processes messages from SNS Topics.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "lambda",
-    "sqs"
+    "sns"
   ],
   "author": "Scott Olson",
   "license": "ISC",

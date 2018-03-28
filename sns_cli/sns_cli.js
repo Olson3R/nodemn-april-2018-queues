@@ -70,10 +70,6 @@ program
     _(_.times(options.number))
       .each((num) => {
         let params = {
-          'Type': {
-            DataType: 'String',
-            StringValue: type
-          },
           'Num': {
             DataType: 'Number',
             StringValue: `${num}`
@@ -81,6 +77,7 @@ program
         }
 
         let payload = {
+          Subject: type,
           Message: JSON.stringify({ default: JSON.stringify(params) }),
           MessageStructure: 'json',
           TopicArn: topicArn

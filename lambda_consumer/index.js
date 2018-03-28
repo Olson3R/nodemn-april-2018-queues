@@ -21,8 +21,8 @@ exports.handler = function (event, context, callback) {
     channel: slack.CHANNEL,
     username: slack.USERNAME,
     fields: [
-      field('Event', event),
-      field('Context', context)
+      field('Event', JSON.stringify(event, null, 2)),
+      field('Context', JSON.stringify(context, null, 2))
     ]
   }, (err, response) => {
     if (err) return console.error(err);
