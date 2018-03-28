@@ -1,0 +1,8 @@
+AWS_PROFILE: "nodemn"
+TOPIC_ARNS:
+  taco: 'arn:aws:sns:us-east-1:296429066411:taco'
+  cat: 'arn:aws:sns:us-east-1:296429066411:cat'
+QUEUE_URLS:
+  taco: 'https://sqs.us-east-1.amazonaws.com/296429066411/dev-taco'
+  cat: 'URL FOR QUEUE FROM AWS'
+

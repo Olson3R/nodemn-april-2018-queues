@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const aws = require('aws-sdk');
-const Config = require('getconfig');
+const Config = require('config');
 const _ = require('lodash');
 
 const pkg = require('./package');
@@ -13,34 +13,39 @@ function parseIntDefault(value, defaultValue) {
 
 program
   .version(pkg.version)
-  .description('CLI examples for Kue.');
+  .description('CLI examples for SNS.');
 
 program
-  .command('produce <type>')
-  .description('Enqueue messages to Kue.')
+  .command('produce-sqs <type>')
+  .description('Enqueue messages to SQS.')
   .option('-n, --number <number>', 'The number of messages to enqueue.', parseIntDefault, 1)
-  // .option('-p, --priority <priority>', 'Priority for the job.', 'normal')
   .action((type, options) => {
-    console.log(`Sending ${options.number} ${type} message(s) to SNS`);
-    var credentials = new aws.SharedIniFileCredentials({ profile: Config.AWS_PROFILE });
+    console.log(`Sending ${options.number} ${type} message(s) to SQS Queue`);
+    var credentials = new aws.SharedIniFileCredentials({ profile: Config.get('AWS_PROFILE') });
     aws.config.update({ credentials: credentials, region: 'us-east-1' });
     let sqs = new aws.SQS({ apiVersion: '2012-11-05' });
+    let queueUrl = Config.get('QUEUE_URLS')[type];
+    console.log(`SQS url ${queueUrl}`);
 
     _(_.times(options.number))
-      .each((i) => {
-        let params = {
+      .each((num) => {
+        let payload = {
           DelaySeconds: 10,
           MessageAttributes: {
-           'I': {
+            'Type': {
+              DataType: 'String',
+              StringValue: type
+            },
+           'Num': {
              DataType: 'Number',
-             StringValue: `${i}`
+             StringValue: `${num}`
             }
           },
           MessageBody: `This is a ${type} message!`,
-          QueueUrl: 'https://sqs.us-east-1.amazonaws.com/296429066411/dev-taco'
+          QueueUrl: queueUrl
          };
 
-         sqs.sendMessage(params, (err, data) => {
+         sqs.sendMessage(payload, (err, data) => {
           if (err) {
             console.error(`Error: ${err}`);
           } else {
@@ -51,22 +56,42 @@ program
   });
 
 program
-  .command('consume <name> <queues>')
-  .description('Start a queue worker.')
-  .action((name, types) => {
-    let workerName = `Worker ${name}`;
-    console.log(workerName);
+  .command('produce-sns <type>')
+  .description('Publish messages to an SNS Topic.')
+  .option('-n, --number <number>', 'The number of messages to publish.', parseIntDefault, 1)
+  .action((type, options) => {
+    console.log(`Publishing ${options.number} ${type} message(s) to SNS Topic`);
+    var credentials = new aws.SharedIniFileCredentials({ profile: Config.get('AWS_PROFILE') });
+    aws.config.update({ credentials: credentials, region: 'us-east-1' });
+    let sns = new aws.SNS({ apiVersion: '2012-11-05' });
+    let topicArn = Config.get('TOPIC_ARNS')[type];
+    console.log(`SNS Topic ARN ${topicArn}`);
 
-    _(types)
-      .split(',')
-      .each((type) => {
-        type = _.trim(type);
-        console.log(`Processing ${type}`);
-        queue.process(type, function(job, done){
-          console.log(`${workerName}: Processing ${JSON.stringify(job)}`);
-          // setTimeout(done, 1000);
-          done('I went KABOOOM');
-          // done();
+    _(_.times(options.number))
+      .each((num) => {
+        let params = {
+          'Type': {
+            DataType: 'String',
+            StringValue: type
+          },
+          'Num': {
+            DataType: 'Number',
+            StringValue: `${num}`
+          }
+        }
+
+        let payload = {
+          Message: JSON.stringify({ default: JSON.stringify(params) }),
+          MessageStructure: 'json',
+          TopicArn: topicArn
+        };
+
+        sns.publish(payload, (err, data) => {
+          if (err) {
+            console.error(`Error: ${err}`);
+          } else {
+            console.log(`Success: ${JSON.stringify(data)}`);
+          }
         });
       });
   });
