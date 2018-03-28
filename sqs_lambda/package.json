@@ -1,0 +1,21 @@
+{
+  "name": "sqs_lambda",
+  "version": "1.0.0",
+  "description": "An example endpoint that processes messages from SQS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lambda",
+    "sqs"
+  ],
+  "author": "Scott Olson",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/client": "^4.1.0",
+    "aws-sdk": "^2.215.1",
+    "config": "^1.30.0",
+    "js-yaml": "^3.11.0"
+  }
+}

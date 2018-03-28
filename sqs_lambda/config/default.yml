@@ -1,0 +1,4 @@
+slack:
+  CHANNEL: '#nodemn'
+  USERNAME: 'LambdaBot'
+  WEBHOOK_URL: '<INCOMING WEBHOOK URL>'
