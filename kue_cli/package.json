@@ -7,7 +7,8 @@
     "kue_cli": "./kue_cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web": "./node_modules/kue/bin/kue-dashboard"
   },
   "keywords": [
     "cli",
