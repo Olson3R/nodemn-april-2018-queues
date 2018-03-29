@@ -6,9 +6,15 @@ const Config = require('config');
 const _ = require('lodash');
 
 const pkg = require('./package');
+const QueuePoller = require('./services/queue_poller');
 
 function parseIntDefault(value, defaultValue) {
   return parseInt(value) || defaultValue;
+}
+
+function setupAws() {
+  var credentials = new aws.SharedIniFileCredentials({ profile: Config.get('AWS_PROFILE') });
+  aws.config.update({ credentials: credentials, region: 'us-east-1' });
 }
 
 program
@@ -21,8 +27,7 @@ program
   .option('-n, --number <number>', 'The number of messages to enqueue.', parseIntDefault, 1)
   .action((type, options) => {
     console.log(`Sending ${options.number} ${type} message(s) to SQS Queue`);
-    var credentials = new aws.SharedIniFileCredentials({ profile: Config.get('AWS_PROFILE') });
-    aws.config.update({ credentials: credentials, region: 'us-east-1' });
+    setupAws();
     let sqs = new aws.SQS({ apiVersion: '2012-11-05' });
     let queueUrl = Config.get('QUEUE_URLS')[type];
     console.log(`SQS url ${queueUrl}`);
@@ -61,8 +66,7 @@ program
   .option('-n, --number <number>', 'The number of messages to publish.', parseIntDefault, 1)
   .action((type, options) => {
     console.log(`Publishing ${options.number} ${type} message(s) to SNS Topic`);
-    var credentials = new aws.SharedIniFileCredentials({ profile: Config.get('AWS_PROFILE') });
-    aws.config.update({ credentials: credentials, region: 'us-east-1' });
+    setupAws();
     let sns = new aws.SNS({ apiVersion: '2012-11-05' });
     let topicArn = Config.get('TOPIC_ARNS')[type];
     console.log(`SNS Topic ARN ${topicArn}`);
@@ -91,6 +95,16 @@ program
           }
         });
       });
+  });
+
+program
+  .command('consume-sqs <type>')
+  .description('Process messages from SQS.')
+  .action((type, options) => {
+    console.log(`Processing ${type} messages from SQS Queue`);
+    setupAws();
+    let queuePoller = new QueuePoller(Config, aws, type);
+    queuePoller.poll();
   });
 
 if (!process.argv.slice(2).length) {
