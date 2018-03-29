@@ -2,7 +2,6 @@
 Queues, Kues, and more
 
 ## [Kue CLI](https://github.com/Olson3R/nodemn-april-2018-queues/tree/master/kue_cli)
-- [Kue](https://github.com/Automattic/kue) is a priority job queue backed by redis, built for node.js.
 - This is a simple CLI example that shows how to produce jobs and then consume the jobs using Kue](https://github.com/Automattic/kue).
 
 ## [SNS CLI](https://github.com/Olson3R/nodemn-april-2018-queues/tree/master/sns_cli)
