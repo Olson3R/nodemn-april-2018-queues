@@ -62,7 +62,10 @@ program
         type = _.trim(type);
         console.log(`Processing ${type}`);
         queue.process(type, function(job, done){
-          console.log(`${workerName}: Processing ${JSON.stringify(job)}`);
+          console.log(`${workerName}: Processing ${JSON.stringify(job, null, 2)}`);
+
+          // DO STUFF HERE
+
           // setTimeout(done, 1000);
           // done('I went KABOOOM');
           done();
