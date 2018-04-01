@@ -11,4 +11,4 @@ This is a simple CLI example that shows how to produce jobs and then consume the
 
 # Usage
 - `./kue_cli.js produce <type> [-n <number>]` - Produce a job of type _type_. Optionally enqueue _number_ of jobs. Default is 1.
-- ./kue_cli.js consume <name> <type> - Consume jobs of type _type_. Can be a comma delimited list. The _name_ is just to distinguish multiple consumers.
+- `./kue_cli.js consume <name> <type>` - Consume jobs of type _type_. Can be a comma delimited list. The _name_ is just to distinguish multiple consumers.
