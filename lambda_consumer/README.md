@@ -7,7 +7,7 @@ This is a simple lambda example that consumes messages from any SNS topic it is 
 # Installation
 1. Create an [Incoming Webhook](https://api.slack.com/incoming-webhooks)
 2. Add the slack webhook url to the configuration.
-3. `./scripts/yarn-1.5.1.js` to install node dependencies.
+1. `npm run setup` to install the node dependencies using yarn from the scripts directory.
 4. Add the files to a zip archive.
 5. Create you [AWS SNS topic](https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html)
 6. Create your lambda.
