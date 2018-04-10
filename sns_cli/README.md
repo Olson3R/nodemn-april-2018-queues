@@ -8,7 +8,7 @@ This is a simple CLI example that shows how to produce messages and then consume
   - [AWS SNS](https://aws.amazon.com/sns/) - AWS Simple Notification Service
 
 # Installation & Configuration
-1. `./scripts/yarn-1.5.1.js` to install the node dependencies.
+1. `npm run setup` to install the node dependencies using yarn from the scripts directory.
 2. Setup an SQS queue.
 3. Setup an SNS topic.
 4. Subscribe the SQS queue to the SNS topic.
