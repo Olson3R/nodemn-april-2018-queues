@@ -1,9 +1,8 @@
 # nodemn-april-2018-queues
 Queues, Kues, and more
 
-## Tech
-- [Redis](https://redis.io/) - Free, simple, fast, in-memory data store. Generally used as a cache or a message broker.
-- [Kue CLI](https://github.com/Olson3R/nodemn-april-2018-queues/tree/master/kue_cli) - This is a simple CLI example that shows how to produce jobs and then consume the jobs using [Kue](https://github.com/Automattic/kue).
+## [Kue CLI](https://github.com/Olson3R/nodemn-april-2018-queues/tree/master/kue_cli)
+- This is a simple CLI example that shows how to produce jobs and then consume the jobs using [Kue](https://github.com/Automattic/kue).
 
 ## [SNS CLI](https://github.com/Olson3R/nodemn-april-2018-queues/tree/master/sns_cli)
 - This is a simple CLI example that shows how to produce messages and then consume the messages:
