@@ -6,8 +6,8 @@ This is a simple CLI example that shows how to produce jobs and then consume the
 # Installation
 
 1. Clone or download the repo `git clone git@github.com:Olson3R/nodemn-april-2018-queues.git`
-2. Change directories to the `nodemn-april-2018-queues/kue_cli` directory
-3. Install the dependencies with yarn `./scripts/yarn-1.5.1.js install`
+1. Change directories to the `nodemn-april-2018-queues/kue_cli` directory
+1. `npm run setup` to install the node dependencies using yarn from the scripts directory.
 
 # Usage
 - `./kue_cli.js produce <type> [-n <number>]` - Produce a job of type _type_. Optionally enqueue _number_ of jobs. Default is 1.
